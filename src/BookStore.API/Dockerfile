@@ -10,14 +10,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
-COPY ["src/BookStore.API/BookStore.API.fsproj", "src/BookStore.API/"]
-RUN dotnet restore "src/BookStore.API/BookStore.API.fsproj"
+COPY ["src/BookStore.API/BookStore.API.csproj", "src/BookStore.API/"]
+RUN dotnet restore "src/BookStore.API/BookStore.API.csproj"
 COPY . .
 WORKDIR "/src/src/BookStore.API"
-RUN dotnet build "BookStore.API.fsproj" -c Release -o /app/build
+RUN dotnet build "BookStore.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BookStore.API.fsproj" -c Release -o /app/publish
+RUN dotnet publish "BookStore.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
