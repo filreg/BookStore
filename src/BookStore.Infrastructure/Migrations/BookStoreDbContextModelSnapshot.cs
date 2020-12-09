@@ -28,7 +28,7 @@ namespace BookStore.Infrastructure.Migrations
 
                     b.Property<string>("Author")
                         .IsRequired()
-                        .HasColumnType("varchar(15)");
+                        .HasColumnType("varchar(150)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");

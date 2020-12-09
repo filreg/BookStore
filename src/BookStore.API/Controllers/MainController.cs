@@ -2,11 +2,9 @@
 
 namespace BookStore.API.Controllers
 {
+    [ApiController]
     public abstract class MainController : ControllerBase
     {
-        //public abstract ckass IActionResult Index()
-        //{
-        //    return View();
-        //}
+
     }
 }

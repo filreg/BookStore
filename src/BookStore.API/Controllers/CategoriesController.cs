@@ -35,7 +35,7 @@ namespace BookStore.API.Controllers
             var category = await _categoryService.GetById(id);
 
             if (category == null) return NotFound();
-        
+
             return Ok(_mapper.Map<CategoryResultDto>(category));
         }
 
@@ -43,9 +43,8 @@ namespace BookStore.API.Controllers
         public async Task<IActionResult> Add(CategoryAddDto categoryDto)
         {
             if (!ModelState.IsValid) return BadRequest();
-            
+
             var category = _mapper.Map<Category>(categoryDto);
-            
             var categoryResult = await _categoryService.Add(category);
 
             if (categoryResult == null) return BadRequest();

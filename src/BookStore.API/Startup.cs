@@ -7,9 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using BookStore.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
@@ -30,6 +28,7 @@ namespace BookStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<BookStoreDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]);
@@ -37,6 +36,7 @@ namespace BookStore.API
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            services.ResolveDependencies();
 
             services.AddSwaggerGen(c =>
             {
@@ -47,12 +47,17 @@ namespace BookStore.API
                 });
             });
 
-            services.ResolveDependencies();
+            
+
+            
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,6 +79,9 @@ namespace BookStore.API
             {
                 endpoints.MapControllers();
             });
+
+            
+            
         }
 
     }
